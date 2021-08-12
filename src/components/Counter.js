@@ -6,14 +6,15 @@ const Counter = ({ min, max }) => {
   const [input, setInput] = useState(min);
   const [error, setError] = useState("");
 
-  const increaseCounter = () => {
-    if (counter < max) {
-      setCounter(counter + 1);
-      setError("");
-    } else {
-      setError(`'Counter more ${max} value'`);
-    }
+  const applyCurrent = (number) => {
+    const newCurrent = Math.min(number, max);
+    setCounter(newCurrent);
   };
+
+  const increaseCounter = () => {
+    applyCurrent(counter + 1);
+  };
+
   const decreaseCounter = () => {
     if (counter > min) {
       setCounter(counter - 1);
@@ -36,18 +37,6 @@ const Counter = ({ min, max }) => {
       setInput("");
     }
   };
-  const inputKeyDown = (e) => {
-    if (e.code === "Enter") {
-      const inputValue = parseInt(input);
-      if (inputValue && inputValue < max && inputValue > min) {
-        setCounter(inputValue);
-        setError("");
-      } else {
-        setError(`Counter is not a number between ${min} and ${max}`);
-        setInput("");
-      }
-    }
-  };
   return (
     <div className={styles.counter}>
       <div className="counter">
@@ -64,7 +53,6 @@ const Counter = ({ min, max }) => {
             value={input}
             onChange={(e) => changeInput(e)}
             onBlur={inputBlur}
-            onKeyDown={(e) => inputKeyDown(e)}
           />
           <button type="button" onClick={increaseCounter} className="btn">
             +
