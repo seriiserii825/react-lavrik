@@ -4,25 +4,26 @@ import styles from "./../css/counter.module.scss";
 
 Counter.propTypes = {
   min: PropTypes.number,
-  max: PropTypes.number.isRequired
+  max: PropTypes.number.isRequired,
+  current: PropTypes.number.isRequired,
+  changeCurrent: PropTypes.func.isRequired
 };
 
-function Counter({ min = 1, max }) {
-  const [counter, setCounter] = useState(min);
+function Counter({ min = 1, max, current, changeCurrent }) {
   const [inputStr, setInput] = useState(min);
 
   const applyCurrent = (number) => {
     const newCurrent = Math.max(min, Math.min(number, max));
-    setCounter(newCurrent);
     setInput(newCurrent);
+    changeCurrent(newCurrent);
   };
 
   const increaseCounter = () => {
-    applyCurrent(counter + 1);
+    applyCurrent(current + 1);
   };
 
   const decreaseCounter = () => {
-    applyCurrent(counter - 1);
+    applyCurrent(current - 1);
   };
 
   const changeInput = (e) => {
@@ -31,7 +32,7 @@ function Counter({ min = 1, max }) {
   const inputBlur = () => {
     const inputValue = parseInt(inputStr);
     if (inputValue && inputValue < max && inputValue > min) {
-      setCounter(inputValue);
+      applyCurrent(inputValue);
     } else {
       setInput(min);
     }

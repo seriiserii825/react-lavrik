@@ -8,6 +8,12 @@ const productsFromServer = [
 ];
 const Shop = () => {
   const [products, setProducts] = useState(productsFromServer);
+  const changeCnt = (id, val) => {
+    setProducts(products.map(product => product.id !== id ? product : { ...product, count: val }));
+  }
+  const removeProduct = (id) => {
+    setProducts(products.filter(product => product.id !== id));
+  }
   return (
     <div className="shop">
       <div className="container">
@@ -18,6 +24,7 @@ const Shop = () => {
             <th>Price</th>
             <th>Count</th>
             <th>Total</th>
+            <th>Actions</th>
           </tr>
           </thead>
           <tbody>
@@ -25,10 +32,21 @@ const Shop = () => {
             <tr key={id}>
               <td>{title}</td>
               <td>{price}</td>
-              <td><Counter max={rest}/></td>
-              <td>{price}</td>
+              <td><Counter max={rest} current={count} changeCurrent={(val) => changeCnt(id, val)}/></td>
+              <td>{price * count}</td>
+              <td>
+                <button type="button" className="btn red lighten-1" onClick={() => removeProduct(id)}>remove</button>
+              </td>
             </tr>
           ))}
+          <tr>
+            <td>Final</td>
+            <td></td>
+            <td></td>
+            <td>{products.reduce((sum, product) => {
+              return product.count * product.price + sum
+            }, 0)}</td>
+          </tr>
           </tbody>
         </table>
       </div>
