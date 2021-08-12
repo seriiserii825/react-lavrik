@@ -1,0 +1,16 @@
+.buttons {
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
+  max-width: 30rem;
+  input[type="text"] {
+    display: inline-block;
+    margin: 0 3rem;
+    padding: 0 1rem;
+    height: 36px;
+  }
+}
+.result {
+  font-size: 2rem;
+  font-weight: bold;
+}
