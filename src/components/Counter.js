@@ -1,13 +1,19 @@
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 import styles from "./../css/counter.module.scss";
-const Counter = ({ min, max }) => {
+
+Counter.propTypes = {
+  min: PropTypes.number.isRequired,
+  max: PropTypes.number.isRequired
+};
+
+function Counter({ min, max }) {
   const [counter, setCounter] = useState(min);
   const [input, setInput] = useState(min);
   const [error, setError] = useState("");
 
   const applyCurrent = (number) => {
-    const newCurrent = Math.min(number, max);
+    const newCurrent = Math.max(min, Math.min(number, max));
     setCounter(newCurrent);
   };
 
@@ -62,11 +68,6 @@ const Counter = ({ min, max }) => {
       </div>
     </div>
   );
-};
-
-Counter.propTypes = {
-  min: PropTypes.number,
-  max: PropTypes.number
-};
+}
 
 export default Counter;

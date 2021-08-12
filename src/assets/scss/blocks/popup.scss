@@ -1,0 +1,80 @@
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+  &.popup--530 {
+	.popup__content {
+	  width: 53rem;
+	  @media screen and (max-width: 768px) {
+		padding-top: 5rem;
+		width: 90%;
+	  }
+	  &::before {
+		width: 44rem;
+	  }
+	}
+  }
+  &__overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, .6);
+	z-index: 1;
+  }
+  &__close {
+	position: absolute;
+	top: -2rem;
+	right: 4rem;
+	width: 1.6rem;
+	height: 1.6rem;
+	cursor: pointer;
+	@media screen and (max-width: 768px) {
+	  top: 3rem;
+	}
+  }
+  &__content {
+	position: relative;
+	padding: 1.8rem 9.8rem 6.8rem;
+	width: 79rem;
+	background-color: white;
+	z-index: 2;
+	@media screen and (max-width: 768px) {
+	  padding: 3rem;
+	  width: 90%;
+	}
+	&::before {
+	  content: '';
+	  position: absolute;
+	  top: -6rem;
+	  right: 0;
+	  width: 70rem;
+	  height: 6rem;
+	  background-color: white;
+	  @media screen and (max-width: 768px) {
+		display: none;
+	  }
+	}
+	&::after {
+	  content: '';
+	  position: absolute;
+	  top: -6rem;
+	  left: 0;
+	  width: 0;
+	  height: 0;
+	  border-style: solid;
+	  border-width: 0 0 6rem 9rem;
+	  border-color: transparent transparent white transparent;
+	  @media screen and (max-width: 768px) {
+		display: none;
+	  }
+	}
+  }
+}

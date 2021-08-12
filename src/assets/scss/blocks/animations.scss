@@ -1,0 +1,44 @@
+.fadeDown-enter-active {
+  animation: fadeDown .8s ease;
+}
+.fadeDown-leave-active {
+  animation: fadeUp .4s ease;
+}
+.fade-enter-active {
+  animation: fadeIn .4s ease;
+}
+.fade-leave-active {
+  animation: fadeOut .2s ease;
+}
+@keyframes fadeIn {
+  0% {
+	opacity: 0;
+  }
+  100% {
+	opacity: 1;
+  }
+}
+@keyframes fadeOut {
+  0% {
+	opacity: 1;
+  }
+  100% {
+	opacity: 0;
+  }
+}
+@keyframes fadeDown {
+  0% {
+	transform: translateY(-100%);
+  }
+  100% {
+	transform: translateY(0);
+  }
+}
+@keyframes fadeUp {
+  0% {
+	transform: translateY(0);
+  }
+  100% {
+	transform: translateY(-100%);
+  }
+}

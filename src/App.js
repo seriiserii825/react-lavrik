@@ -6,7 +6,7 @@ function App() {
   return (
     <div className="App">
       <Header />
-      <Counter min={1} max={8} />
+      <Counter min={3} max={8} />
     </div>
   );
 }
