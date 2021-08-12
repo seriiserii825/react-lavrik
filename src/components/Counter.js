@@ -3,18 +3,18 @@ import React, { useState } from "react";
 import styles from "./../css/counter.module.scss";
 
 Counter.propTypes = {
-  min: PropTypes.number.isRequired,
+  min: PropTypes.number,
   max: PropTypes.number.isRequired
 };
 
-function Counter({ min, max }) {
+function Counter({ min = 1, max }) {
   const [counter, setCounter] = useState(min);
-  const [input, setInput] = useState(min);
-  const [error, setError] = useState("");
+  const [inputStr, setInput] = useState(min);
 
   const applyCurrent = (number) => {
     const newCurrent = Math.max(min, Math.min(number, max));
     setCounter(newCurrent);
+    setInput(newCurrent);
   };
 
   const increaseCounter = () => {
@@ -22,41 +22,30 @@ function Counter({ min, max }) {
   };
 
   const decreaseCounter = () => {
-    if (counter > min) {
-      setCounter(counter - 1);
-      setError("");
-    } else {
-      setError(`'Counter less ${min} value'`);
-    }
+    applyCurrent(counter - 1);
   };
 
   const changeInput = (e) => {
     setInput(e.target.value);
   };
   const inputBlur = () => {
-    const inputValue = parseInt(input);
+    const inputValue = parseInt(inputStr);
     if (inputValue && inputValue < max && inputValue > min) {
       setCounter(inputValue);
-      setError("");
     } else {
-      setError(`Counter is not a number between ${min} and ${max}`);
-      setInput("");
+      setInput(min);
     }
   };
   return (
     <div className={styles.counter}>
       <div className="counter">
-        <p>
-          <span>min: {min}</span>, <span>{max}</span>
-        </p>
-        <p className={styles.result}>{counter}</p>
         <div className={styles.buttons}>
           <button type="button" onClick={decreaseCounter} className="btn">
             -
           </button>
           <input
             type="text"
-            value={input}
+            value={inputStr}
             onChange={(e) => changeInput(e)}
             onBlur={inputBlur}
           />
@@ -64,7 +53,6 @@ function Counter({ min, max }) {
             +
           </button>
         </div>
-        {error && <p className="error">{error}</p>}
       </div>
     </div>
   );

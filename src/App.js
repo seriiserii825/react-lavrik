@@ -1,12 +1,12 @@
 import "./App.css";
-import Counter from "./components/Counter";
 import Header from "./components/Header";
+import Shop from "./components/Shop";
 
 function App() {
   return (
     <div className="App">
       <Header />
-      <Counter min={3} max={8} />
+      <Shop />
     </div>
   );
 }
