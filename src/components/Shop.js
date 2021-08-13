@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, {  useState } from "react";
 import Counter from "./Counter";
+import useWindowSize from "../hooks/useWindowSize";
+import Modal from "./Modal";
 
 const productsFromServer = [
   { id: 1, title: "First", price: 100, rest: 8, count: 1 },
@@ -8,14 +10,17 @@ const productsFromServer = [
 ];
 const Shop = () => {
   const [products, setProducts] = useState(productsFromServer);
+  const windowSize = useWindowSize();
   const changeCnt = (id, val) => {
     setProducts(products.map(product => product.id !== id ? product : { ...product, count: val }));
   }
   const removeProduct = (id) => {
     setProducts(products.filter(product => product.id !== id));
   }
+
   return (
     <div className="shop">
+      <Modal/>
       <div className="container">
         <table>
           <thead>
@@ -39,14 +44,16 @@ const Shop = () => {
               </td>
             </tr>
           ))}
-          <tr>
-            <td>Final</td>
-            <td></td>
-            <td></td>
-            <td>{products.reduce((sum, product) => {
-              return product.count * product.price + sum
-            }, 0)}</td>
-          </tr>
+          {windowSize.width > 700 && (
+            <tr>
+              <td>Final</td>
+              <td></td>
+              <td></td>
+              <td>{products.reduce((sum, product) => {
+                return product.count * product.price + sum
+              }, 0)}</td>
+            </tr>
+          )}
           </tbody>
         </table>
       </div>
